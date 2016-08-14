@@ -9,6 +9,9 @@ import faction.Faction;
 import main.Raidcraft;
 
 public class ClaimCommand {
+	
+	// Test to see if sync works
+	
 	Raidcraft plugin;
 
 	Faction factionCore = new Faction();
