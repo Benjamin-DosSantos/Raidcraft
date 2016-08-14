@@ -1,6 +1,5 @@
 package commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -22,11 +21,11 @@ public class HomeCommand {
 
 			Location homeLocation = new Location(player.getWorld(), xPos, yPos, zPos);
 
-			player.sendMessage(ChatColor.BLUE + "[Raidcraft] " + ChatColor.GOLD + "Teleporting");
+			player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.sucessColor + "Teleporting");
 
 			player.teleport(homeLocation);
 		} else {
-			player.sendMessage(ChatColor.BLUE + "[Raidcraft] " + ChatColor.RED + "You are not a part of a clan!");
+			player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.failColor + "You are not a part of a clan!");
 		}
 	}// End of home method
 
@@ -45,12 +44,12 @@ public class HomeCommand {
 				Raidcraft.addItem(totalPath + "." + "yPos", newHome.getBlockY());
 				Raidcraft.addItem(totalPath + "." + "zPos", newHome.getBlockZ());
 				
-				player.sendMessage(ChatColor.BLUE + "[Raidcraft] " + ChatColor.GOLD + "A new clan home has been set.");
+				player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.sucessColor + "A new clan home has been set.");
 			}else{
-				player.sendMessage(ChatColor.BLUE + "[Raidcraft] " + ChatColor.RED + "You do not have permission to do this!");
+				player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.failColor + "You do not have permission to do this!");
 			}
 		}else{
-			player.sendMessage(ChatColor.BLUE + "[Raidcraft] " + ChatColor.RED + "You are not a part of a clan!");
+			player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.failColor + "You are not a part of a clan!");
 		}
 	}// End of setHome method
 }// End of class

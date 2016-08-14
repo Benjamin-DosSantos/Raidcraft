@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -14,6 +15,10 @@ import generation.MineCore;
 
 public class Raidcraft extends JavaPlugin {
 
+	public ChatColor titleColor = ChatColor.BLUE;
+	public ChatColor sucessColor = ChatColor.GOLD;
+	public ChatColor failColor = ChatColor.RED;
+	
 	CommandHandler commandHandler = new CommandHandler();
 	MineCore mineCore = new MineCore();
 	

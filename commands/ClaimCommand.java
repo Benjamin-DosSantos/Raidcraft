@@ -10,14 +10,11 @@ import main.Raidcraft;
 
 public class ClaimCommand {
 
-	// Test to see if sync works
-
 	Raidcraft plugin;
 
 	Faction factionCore = new Faction();
 
 	public void claimLandForFaction(Player player) {
-		player.sendMessage("You are trying to claim a chunk");
 		String faction = factionCore.getPlayerFaction(player);
 		String totalPath = factionCore.factionLocation + "." + faction + "." + factionCore.landLocation;
 
@@ -29,8 +26,9 @@ public class ClaimCommand {
 			player.sendMessage(totalPath);
 			chunkList.add(chunkInfo);
 			Raidcraft.addItem(totalPath, chunkList);
+			player.sendMessage(plugin.titleColor + "[RaidCraft] " + plugin.sucessColor + " You are trying to claim a chunk");
 		} else {
-			player.sendMessage("This chunk is already claimed");
+			player.sendMessage(plugin.titleColor + "[RaidCraft] " + plugin.failColor + "This chunk is already claimed");
 		}
 	}
 
