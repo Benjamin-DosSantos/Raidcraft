@@ -17,6 +17,7 @@ public class Faction {
 	public String modLocation = "Mods";
 	public String landLocation = "Land";
 	public String homeLocation = "Home";
+	public String inviteLocation = "Invites";
 
 	ArrayList<String> masterList = new ArrayList<String>();
 
@@ -107,6 +108,29 @@ public class Faction {
 			player.sendMessage("You have been added to a clan");
 		} else {
 			player.sendMessage("You are already a part of a faction");
+		}
+	}// End of addPlayerToFaction
+
+	public void invitePlayerToFaction(Player player, Player newPlayer) {
+		String senderFaction = getPlayerFaction(player);
+
+		if (getPlayerFaction(newPlayer) == null) {
+			if (newPlayer.isOnline()) {
+				player.sendMessage(ChatColor.BLUE + "[Raidcraft] " + ChatColor.GOLD + newPlayer.getDisplayName()
+						+ " has been sent a clan invite.");
+
+				Raidcraft.addItem(inviteLocation + "." + newPlayer.getUniqueId().toString(), senderFaction);
+
+				newPlayer.sendMessage(ChatColor.BLUE + "[Raidcraft] " + ChatColor.GOLD + player.getDisplayName()
+						+ " has invited you to join " + senderFaction + ". To join use the command " + ChatColor.BOLD
+						+ "/clan join " + senderFaction);
+			} else {
+				player.sendMessage(ChatColor.BLUE + "[Raidcraft] " + ChatColor.GOLD + newPlayer.getDisplayName()
+						+ " is not currently online. They will get the request the next time they join.");
+			}
+		} else {
+			player.sendMessage(ChatColor.BLUE + "[Raidcraft] " + ChatColor.RED + newPlayer.getDisplayName()
+					+ " is already part of a faction");
 		}
 	}// End of addPlayerToFaction
 

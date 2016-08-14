@@ -1,5 +1,6 @@
 package commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -11,6 +12,7 @@ public class CommandHandler {
 	ClaimCommand claimCore = new ClaimCommand();
 	HomeCommand homeCore = new HomeCommand();
 	
+	@SuppressWarnings("deprecation")
 	public void routeCommand(CommandSender sender, String[] commandArgs) {
 		Player player = (Player) sender;
 		switch (commandArgs[0].toLowerCase()) {
@@ -20,8 +22,8 @@ public class CommandHandler {
 		case "claim":
 			claimCore.claimLandForFaction(player);
 			break;
-		case "add":
-			factionCore.addPlayerToFaction(player, commandArgs[1]);
+		case "invite":
+			factionCore.invitePlayerToFaction(player, Bukkit.getPlayer(commandArgs[1]));
 			break;
 		case "home":
 			homeCore.home(player);

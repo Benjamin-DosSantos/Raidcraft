@@ -6,14 +6,17 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import commands.CommandHandler;
+import generation.MineCore;
 
 public class Raidcraft extends JavaPlugin {
 
 	CommandHandler commandHandler = new CommandHandler();
-
+	MineCore mineCore = new MineCore();
+	
 	public static FileConfiguration config;
 
 	public void onEnable() {
@@ -28,6 +31,9 @@ public class Raidcraft extends JavaPlugin {
 			commandHandler.routeCommand(sender, args);
 			saveConfig();
 			return true;
+		case "mine":
+			mineCore.routeMine((Player) sender, args);
+			break;
 		}
 		return false;
 	}// End of onCommand Method
