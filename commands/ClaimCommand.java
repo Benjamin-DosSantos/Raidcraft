@@ -9,38 +9,38 @@ import faction.Faction;
 import main.Raidcraft;
 
 public class ClaimCommand {
-	
+
 	// Test to see if sync works
-	
+
 	Raidcraft plugin;
 
 	Faction factionCore = new Faction();
-	
+
 	public void claimLandForFaction(Player player) {
 		player.sendMessage("You are trying to claim a chunk");
 		String faction = factionCore.getPlayerFaction(player);
 		String totalPath = factionCore.factionLocation + "." + faction + "." + factionCore.landLocation;
-		
+
 		ArrayList<String> chunkList = getFactionClaims(faction, totalPath);
-		
+
 		String chunkInfo = player.getLocation().getChunk().toString();
-		
-		if(!chunkList.contains(chunkInfo)){
+
+		if (!chunkList.contains(chunkInfo)) {
 			player.sendMessage(totalPath);
 			chunkList.add(chunkInfo);
 			Raidcraft.addItem(totalPath, chunkList);
-		}else{
+		} else {
 			player.sendMessage("This chunk is already claimed");
 		}
 	}
 
 	private ArrayList<String> getFactionClaims(String faction, String totalPath) {
 		ArrayList<String> masterList = new ArrayList<>();
-		
+
 		ConfigurationSection factionClaims = Raidcraft.config.getConfigurationSection(totalPath);
-		
-		if(factionClaims != null){
-			for(String chunk: factionClaims.getKeys(false)){
+
+		if (factionClaims != null) {
+			for (String chunk : factionClaims.getKeys(false)) {
 				masterList.add(chunk);
 			}
 		}

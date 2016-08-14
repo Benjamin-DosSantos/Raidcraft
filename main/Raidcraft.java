@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -36,6 +37,14 @@ public class Raidcraft extends JavaPlugin {
 	}
 
 	public static void addItem(String path, ArrayList<String> info) {
+		config.set(path, info);
+	}
+	
+	public static void addItem(String path, int info) {
+		config.set(path, info);
+	}
+
+	public static void addItem(String path, World info) {
 		config.set(path, info);
 	}
 	
