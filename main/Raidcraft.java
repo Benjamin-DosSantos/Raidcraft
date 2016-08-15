@@ -15,9 +15,9 @@ import generation.MineCore;
 
 public class Raidcraft extends JavaPlugin {
 
-	public ChatColor titleColor = ChatColor.BLUE;
-	public ChatColor sucessColor = ChatColor.GOLD;
-	public ChatColor failColor = ChatColor.RED;
+	public ChatColor titleColor = ChatColor.BLUE;	// Color for the name of the plugin when displayed in chat
+	public ChatColor sucessColor = ChatColor.GOLD;	// Color for successful commands 
+	public ChatColor failColor = ChatColor.RED;		// Color for failed commands 
 	
 	CommandHandler commandHandler = new CommandHandler();
 	MineCore mineCore = new MineCore();
@@ -39,25 +39,25 @@ public class Raidcraft extends JavaPlugin {
 		case "mine":
 			mineCore.routeMine((Player) sender, args);
 			break;
-		}
+		}// End of command finder
 		return false;
 	}// End of onCommand Method
 
 	public static void addItem(String path, String info) {
 		config.set(path, info);
-	}
+	}// End of addItem method (String, String)
 
 	public static void addItem(String path, ArrayList<String> info) {
 		config.set(path, info);
-	}
+	}// End of addItem method (String, ArrayList<String>)
 	
 	public static void addItem(String path, int info) {
 		config.set(path, info);
-	}
+	}// End of addItem method (String, int)
 
 	public static void addItem(String path, World info) {
 		config.set(path, info);
-	}
+	}// End of addItem method (String, World)
 	
 	public void onDisable() {
 		saveConfig();

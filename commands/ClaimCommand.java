@@ -23,7 +23,6 @@ public class ClaimCommand {
 		String chunkInfo = player.getLocation().getChunk().toString();
 
 		if (!chunkList.contains(chunkInfo)) {
-			player.sendMessage(totalPath);
 			chunkList.add(chunkInfo);
 			Raidcraft.addItem(totalPath, chunkList);
 			player.sendMessage(plugin.titleColor + "[RaidCraft] " + plugin.sucessColor + " You are trying to claim a chunk");
