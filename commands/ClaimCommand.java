@@ -25,9 +25,10 @@ public class ClaimCommand {
 		if (!chunkList.contains(chunkInfo)) {
 			chunkList.add(chunkInfo);
 			Raidcraft.addItem(totalPath, chunkList);
-			player.sendMessage(plugin.titleColor + "[RaidCraft] " + plugin.sucessColor + " You are trying to claim a chunk");
+			player.sendMessage(
+					plugin.pluginTitle + plugin.sucessColor + " You are trying to claim a chunk");
 		} else {
-			player.sendMessage(plugin.titleColor + "[RaidCraft] " + plugin.failColor + "This chunk is already claimed");
+			player.sendMessage(plugin.pluginTitle + plugin.failColor + "This chunk is already claimed");
 		}
 	}
 

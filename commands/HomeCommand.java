@@ -9,7 +9,7 @@ import main.Raidcraft;
 public class HomeCommand {
 	Raidcraft plugin;
 	Faction factionCore = new Faction();
-
+	
 	public void home(Player player) {
 		if (factionCore.getPlayerFaction(player) != null) {
 			String totalPath = factionCore.factionLocation + "." + factionCore.getPlayerFaction(player) + "."
@@ -21,11 +21,11 @@ public class HomeCommand {
 
 			Location homeLocation = new Location(player.getWorld(), xPos, yPos, zPos);
 
-			player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.sucessColor + "Teleporting");
+			player.sendMessage(plugin.pluginTitle + plugin.sucessColor + "Teleporting");
 
 			player.teleport(homeLocation);
 		} else {
-			player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.failColor + "You are not a part of a clan!");
+			player.sendMessage(plugin.pluginTitle + plugin.failColor + "You are not a part of a clan!");
 		}
 	}// End of home method
 
@@ -44,12 +44,12 @@ public class HomeCommand {
 				Raidcraft.addItem(totalPath + "." + "yPos", newHome.getBlockY());
 				Raidcraft.addItem(totalPath + "." + "zPos", newHome.getBlockZ());
 				
-				player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.sucessColor + "A new clan home has been set.");
+				player.sendMessage(plugin.pluginTitle + plugin.sucessColor + "A new clan home has been set.");
 			}else{
-				player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.failColor + "You do not have permission to do this!");
+				player.sendMessage(plugin.pluginTitle + plugin.failColor + "You do not have permission to do this!");
 			}
 		}else{
-			player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.failColor + "You are not a part of a clan!");
+			player.sendMessage(plugin.pluginTitle + plugin.failColor + "You are not a part of a clan!");
 		}
 	}// End of setHome method
 }// End of class

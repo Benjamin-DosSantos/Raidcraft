@@ -24,13 +24,13 @@ public class Faction {
 	public void createFaction(Player player, String factionName) {
 		String factionPath = factionLocation + "." + factionName;
 		if (!isInConfig(player, factionName) && getPlayerFaction(player) == null) {
-			player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.sucessColor + "Faction created successfully!");
+			player.sendMessage(plugin.pluginTitle + plugin.sucessColor + "Faction created successfully!");
 			masterList.add(factionName);
 			Raidcraft.addItem(factionPath, masterList);
 			Raidcraft.addItem(factionPath + "." + leaderLocation, player.getUniqueId().toString());
 		} else {
 			player.sendMessage(
-					plugin.titleColor + "[Raidcraft] " + plugin.failColor + "The faction was not created, please try again.");
+					plugin.pluginTitle + plugin.failColor + "The faction was not created, please try again.");
 		}
 	}// End of createFaction method
 
@@ -116,20 +116,20 @@ public class Faction {
 
 		if (getPlayerFaction(newPlayer) == null) {
 			if (newPlayer.isOnline()) {
-				player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.sucessColor + newPlayer.getDisplayName()
+				player.sendMessage(plugin.pluginTitle + plugin.sucessColor + newPlayer.getDisplayName()
 						+ " has been sent a clan invite.");
 
 				Raidcraft.addItem(inviteLocation + "." + newPlayer.getUniqueId().toString(), senderFaction);
 
-				newPlayer.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.sucessColor + player.getDisplayName()
+				newPlayer.sendMessage(plugin.pluginTitle + plugin.sucessColor + player.getDisplayName()
 						+ " has invited you to join " + senderFaction + ". To join use the command " + ChatColor.BOLD
 						+ "/clan join " + senderFaction);
 			} else {
-				player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.sucessColor + newPlayer.getDisplayName()
+				player.sendMessage(plugin.pluginTitle + plugin.sucessColor + newPlayer.getDisplayName()
 						+ " is not currently online. They will get the request the next time they join.");
 			}
 		} else {
-			player.sendMessage(plugin.titleColor + "[Raidcraft] " + plugin.failColor + newPlayer.getDisplayName()
+			player.sendMessage(plugin.pluginTitle + plugin.failColor + newPlayer.getDisplayName()
 					+ " is already part of a faction");
 		}
 	}// End of addPlayerToFaction

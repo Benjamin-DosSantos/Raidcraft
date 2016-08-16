@@ -19,6 +19,8 @@ public class Raidcraft extends JavaPlugin {
 	public ChatColor sucessColor = ChatColor.GOLD;	// Color for successful commands 
 	public ChatColor failColor = ChatColor.RED;		// Color for failed commands 
 	
+	public String pluginTitle = titleColor + "[Raidcraft] ";
+	
 	CommandHandler commandHandler = new CommandHandler();
 	MineCore mineCore = new MineCore();
 	
