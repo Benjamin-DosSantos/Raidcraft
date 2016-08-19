@@ -20,6 +20,9 @@ public class CommandHandler {
 		case "create":
 			factionCore.createFaction(player, commandArgs[1]); // This is where the To lower case was if that becomes an issue
 			break;
+		case "disband":
+			factionCore.disbandFaction(player); // This is where the To lower case was if that becomes an issue
+			break;
 		case "claim":
 			claimCore.claimLandForFaction(plugin, player);
 			break;

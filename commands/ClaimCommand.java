@@ -19,12 +19,14 @@ public class ClaimCommand {
 
 		List<String> chunkList = getFactionClaims(plugin, player, totalPath);
 
-		String chunkInfo = player.getLocation().getChunk().toString();
-
-		if (!chunkList.contains(chunkInfo)) {
+		Chunk chunk = player.getLocation().getChunk();
+		String chunkInfo = chunk.toString();
+		
+		if (!chunkList.contains(chunkInfo) && getOwnerFaction(plugin, player, chunk).equals("Wilderness")) {
 			chunkList.add(chunkInfo);
 			Raidcraft.addItem(totalPath, chunkList);
 			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.sucessColor + " You claimed this chunk for your clan");
+			plugin.previousOwner = faction;
 		} else {
 			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.failColor + "This chunk is already claimed");
 		}
@@ -62,9 +64,5 @@ public class ClaimCommand {
 			}
 		}
 		return "Wilderness";
-	}
-	
-	public boolean isChuckClaimed() {
-		return false;
 	}
 }// End of class

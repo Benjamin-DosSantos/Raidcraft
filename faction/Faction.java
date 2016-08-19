@@ -33,6 +33,18 @@ public class Faction {
 					Raidcraft.pluginTitle + Raidcraft.failColor + "The faction was not created, please try again.");
 		}
 	}// End of createFaction method
+	
+	public void disbandFaction(Player player) {
+		String playerFaction = getPlayerFaction(player);
+		String factionPath = factionLocation + "." + playerFaction;
+		String factionLeader = Raidcraft.config.getString(factionPath + leaderLocation); 
+		if (isInConfig(player, playerFaction) && factionLeader.equalsIgnoreCase(player.getUniqueId().toString())) {
+			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.sucessColor + "Faction removed successfully!");
+		} else {
+			player.sendMessage(
+					Raidcraft.pluginTitle + Raidcraft.failColor + "The faction was not removed, please try again.");
+		}
+	}// End of createFaction method
 
 	public boolean isInConfig(Player player, String factionName) {
 		boolean isInConfig = false;
@@ -134,6 +146,10 @@ public class Faction {
 		}
 	}// End of addPlayerToFaction
 
+	public String playerHasInvite(Raidcraft plugin, Player player){
+		return plugin.getConfig().getString(inviteLocation + "." + player.getUniqueId().toString());
+	}
+	
 	public void removePlayerFromFaction(Player player, String factionName) {
 
 	}// End of removePlayerFromFaction
