@@ -1,6 +1,7 @@
 package faction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
@@ -9,7 +10,6 @@ import org.bukkit.entity.Player;
 import main.Raidcraft;
 
 public class Faction {
-	Raidcraft plugin;
 
 	public String factionLocation = "Factions";
 	public String leaderLocation = "Leader";
@@ -19,18 +19,18 @@ public class Faction {
 	public String homeLocation = "Home";
 	public String inviteLocation = "Invites";
 
-	ArrayList<String> masterList = new ArrayList<String>();
+	List<String> masterList = new ArrayList<String>();
 
 	public void createFaction(Player player, String factionName) {
 		String factionPath = factionLocation + "." + factionName;
 		if (!isInConfig(player, factionName) && getPlayerFaction(player) == null) {
-			player.sendMessage(plugin.pluginTitle + plugin.sucessColor + "Faction created successfully!");
+			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.sucessColor + "Faction created successfully!");
 			masterList.add(factionName);
 			Raidcraft.addItem(factionPath, masterList);
 			Raidcraft.addItem(factionPath + "." + leaderLocation, player.getUniqueId().toString());
 		} else {
 			player.sendMessage(
-					plugin.pluginTitle + plugin.failColor + "The faction was not created, please try again.");
+					Raidcraft.pluginTitle + Raidcraft.failColor + "The faction was not created, please try again.");
 		}
 	}// End of createFaction method
 
@@ -42,7 +42,7 @@ public class Faction {
 		return isInConfig;
 	}// End of isInConfig method
 
-	public ArrayList<String> getAllFactions() {
+	public List<String> getAllFactions() {
 		ConfigurationSection factions = Raidcraft.config.getConfigurationSection(factionLocation);
 		if (factions != null) {
 			for (String faction : factions.getKeys(false)) {
@@ -61,7 +61,7 @@ public class Faction {
 	}
 
 	public String getPlayerFaction(Player player) {
-		ArrayList<String> factionList = getAllFactions();
+		List<String> factionList = getAllFactions();
 		for (String faction : factionList) {
 			String factionPath = factionLocation + "." + faction;
 			if (player.getUniqueId().toString()
@@ -116,20 +116,20 @@ public class Faction {
 
 		if (getPlayerFaction(newPlayer) == null) {
 			if (newPlayer.isOnline()) {
-				player.sendMessage(plugin.pluginTitle + plugin.sucessColor + newPlayer.getDisplayName()
+				player.sendMessage(Raidcraft.pluginTitle + Raidcraft.sucessColor + newPlayer.getDisplayName()
 						+ " has been sent a clan invite.");
 
 				Raidcraft.addItem(inviteLocation + "." + newPlayer.getUniqueId().toString(), senderFaction);
 
-				newPlayer.sendMessage(plugin.pluginTitle + plugin.sucessColor + player.getDisplayName()
+				newPlayer.sendMessage(Raidcraft.pluginTitle + Raidcraft.sucessColor + player.getDisplayName()
 						+ " has invited you to join " + senderFaction + ". To join use the command " + ChatColor.BOLD
 						+ "/clan join " + senderFaction);
 			} else {
-				player.sendMessage(plugin.pluginTitle + plugin.sucessColor + newPlayer.getDisplayName()
+				player.sendMessage(Raidcraft.pluginTitle + Raidcraft.sucessColor + newPlayer.getDisplayName()
 						+ " is not currently online. They will get the request the next time they join.");
 			}
 		} else {
-			player.sendMessage(plugin.pluginTitle + plugin.failColor + newPlayer.getDisplayName()
+			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.failColor + newPlayer.getDisplayName()
 					+ " is already part of a faction");
 		}
 	}// End of addPlayerToFaction

@@ -1,8 +1,9 @@
 package commands;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 
 import faction.Faction;
@@ -10,41 +11,59 @@ import main.Raidcraft;
 
 public class ClaimCommand {
 
-	Raidcraft plugin;
-
 	Faction factionCore = new Faction();
 
-	public void claimLandForFaction(Player player) {
+	public void claimLandForFaction(Raidcraft plugin, Player player) {
 		String faction = factionCore.getPlayerFaction(player);
 		String totalPath = factionCore.factionLocation + "." + faction + "." + factionCore.landLocation;
 
-		ArrayList<String> chunkList = getFactionClaims(faction, totalPath);
+		List<String> chunkList = getFactionClaims(plugin, player, totalPath);
 
 		String chunkInfo = player.getLocation().getChunk().toString();
 
 		if (!chunkList.contains(chunkInfo)) {
 			chunkList.add(chunkInfo);
 			Raidcraft.addItem(totalPath, chunkList);
-			player.sendMessage(
-					plugin.pluginTitle + plugin.sucessColor + " You are trying to claim a chunk");
+			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.sucessColor + " You claimed this chunk for your clan");
 		} else {
-			player.sendMessage(plugin.pluginTitle + plugin.failColor + "This chunk is already claimed");
+			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.failColor + "This chunk is already claimed");
 		}
 	}
-
-	private ArrayList<String> getFactionClaims(String faction, String totalPath) {
-		ArrayList<String> masterList = new ArrayList<>();
-
-		ConfigurationSection factionClaims = Raidcraft.config.getConfigurationSection(totalPath);
-
-		if (factionClaims != null) {
-			for (String chunk : factionClaims.getKeys(false)) {
-				masterList.add(chunk);
-			}
+	
+	public void removeLandFromFaction(Raidcraft plugin, Player player){
+		String faction = factionCore.getPlayerFaction(player);
+		String totalPath = factionCore.factionLocation + "." + faction + "." + factionCore.landLocation;
+		
+		List<String> chunkList = getFactionClaims(plugin, player, totalPath);
+		String chunkInfo = player.getLocation().getChunk().toString();
+		
+		if (chunkList.contains(chunkInfo)) {
+			chunkList.remove(chunkInfo);
+			Raidcraft.addItem(totalPath, chunkList);
+			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.sucessColor + " This chunk has been removed");
+		} else {
+			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.failColor + " You do not own this chunk");
 		}
+		
+	}
+
+	private List<String> getFactionClaims(Raidcraft plugin, Player player, String totalPath) {
+		List<String> masterList = plugin.getConfig().getStringList(totalPath);
+		
 		return masterList;
 	}
 
+	public String getOwnerFaction(Raidcraft plugin, Player player, Chunk chunk){
+		for(String faction: factionCore.getAllFactions()){
+			String totalPath = factionCore.factionLocation + "." + faction + "." + factionCore.landLocation;
+			List<String> chunkList = getFactionClaims(plugin, player, totalPath);
+			if(chunkList.contains(chunk.toString())){
+				return faction;
+			}
+		}
+		return "Wilderness";
+	}
+	
 	public boolean isChuckClaimed() {
 		return false;
 	}

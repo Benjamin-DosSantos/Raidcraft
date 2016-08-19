@@ -13,15 +13,18 @@ public class CommandHandler {
 	HomeCommand homeCore = new HomeCommand();
 
 	@SuppressWarnings("deprecation")
-	public void routeCommand(CommandSender sender, String[] commandArgs) {
+	public void routeCommand(Raidcraft plugin, CommandSender sender, String[] commandArgs) {
 		Player player = (Player) sender;
-		
+
 		switch (commandArgs[0].toLowerCase()) {
 		case "create":
-			factionCore.createFaction(player, commandArgs[1].toLowerCase());
+			factionCore.createFaction(player, commandArgs[1]); // This is where the To lower case was if that becomes an issue
 			break;
 		case "claim":
-			claimCore.claimLandForFaction(player);
+			claimCore.claimLandForFaction(plugin, player);
+			break;
+		case "unclaim":
+			claimCore.removeLandFromFaction(plugin, player);
 			break;
 		case "invite":
 			factionCore.invitePlayerToFaction(player, Bukkit.getPlayer(commandArgs[1]));
