@@ -63,6 +63,10 @@ public class Faction {
 		}
 		return masterList;
 	}
+	
+	public int getNumberOfFactions(){
+		return getAllFactions().size();
+	}
 
 	public void removeFaction(Player player, String factionName) {
 
@@ -148,6 +152,20 @@ public class Faction {
 
 	public String playerHasInvite(Raidcraft plugin, Player player){
 		return plugin.getConfig().getString(inviteLocation + "." + player.getUniqueId().toString());
+	}
+	
+	public void listClans(Raidcraft plugin, Player player){
+		int numberOfClans = getNumberOfFactions();
+		
+		player.sendMessage(ChatColor.RED + "==========" + plugin.sucessColor + "[There are " + numberOfClans + " Clans]" + ChatColor.RED + "==========");
+		
+		List<String> factions = getAllFactions();
+		
+		for(int i = 0; i < factions.size() / 2; i++){		// For some reason the list is twice as long as it actually is(?)
+			player.sendMessage(plugin.sucessColor + factions.get(i) + "\n");
+		}
+		
+		player.sendMessage(ChatColor.RED + "==========" + plugin.sucessColor + "[There are " + numberOfClans + " Clans]" + ChatColor.RED + "==========");
 	}
 	
 	public void removePlayerFromFaction(Player player, String factionName) {

@@ -26,6 +26,9 @@ public class CommandHandler {
 		case "claim":
 			claimCore.claimLandForFaction(plugin, player);
 			break;
+		case "list":
+			factionCore.listClans(plugin, player);
+			break;
 		case "unclaim":
 			claimCore.removeLandFromFaction(plugin, player);
 			break;
