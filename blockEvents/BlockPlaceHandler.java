@@ -1,13 +1,16 @@
-package faction;
+package blockEvents;
 
 import org.bukkit.Chunk;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import commands.ClaimCommand;
+import faction.Faction;
 import main.Raidcraft;
 
 public class BlockPlaceHandler implements Listener{
@@ -28,9 +31,14 @@ public class BlockPlaceHandler implements Listener{
 		
 		String faction = claimCore.getOwnerFaction(plugin, player, blockChunk);
 		
-		if(!faction.equalsIgnoreCase(factionCore.getPlayerFaction(player)) && !faction.equalsIgnoreCase("Wilderness")){
+		if(!faction.equalsIgnoreCase(factionCore.getPlayerFaction(player)) && !faction.equalsIgnoreCase("Wilderness") && !event.getBlock().equals(Material.TNT)){
 			player.sendMessage(plugin.pluginTitle + plugin.failColor + "You don't have permission to place a block here");
 			event.setCancelled(true);
+		}else{
+			if (event.getBlock().getType().equals(Material.TNT)) {
+				event.getBlock().setType(Material.AIR);
+				TNTPrimed tnt = (TNTPrimed) event.getPlayer().getWorld().spawn(event.getBlock().getLocation(), TNTPrimed.class);
+			} // End of if the block is TNT
 		}
 	}
 	

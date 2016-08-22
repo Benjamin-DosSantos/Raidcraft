@@ -14,11 +14,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import blockEvents.BlockPlaceHandler;
+import blockEvents.StoneBrickHandler;
 import commands.ClaimCommand;
 import commands.CommandHandler;
-import faction.BlockPlaceHandler;
 import faction.Faction;
-import faction.StoneBrickHandler;
 import generation.MineCore;
 
 public class Raidcraft extends JavaPlugin implements Listener {
@@ -55,7 +55,7 @@ public class Raidcraft extends JavaPlugin implements Listener {
 			saveConfig();
 			return true;
 		case "mine":
-			mineCore.routeMine((Player) sender, args);
+			mineCore.routeMine(this, (Player) sender, args);
 			break;
 		}// End of command finder
 		return false;

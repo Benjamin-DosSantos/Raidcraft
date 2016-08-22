@@ -1,5 +1,6 @@
-package faction;
+package blockEvents;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Location;
@@ -27,21 +28,20 @@ public class StoneBrickHandler implements Listener {
 
 	@EventHandler
 	public void playerBrokeStoneBrick(EntityExplodeEvent event) {
-		for (Block block : event.blockList()) {
+		for (Block block : new ArrayList<Block>(event.blockList())) {
 			if (block.getType().equals(Material.SMOOTH_BRICK)) {
 				Location blockLocation = block.getLocation();
 				if (semiBrokenBlocks.containsKey(blockLocation)) {
 					int numberOfTimesBroken = semiBrokenBlocks.get(blockLocation);
 					if (numberOfTimesBroken < numberOfTimesNeeded) {
-						event.setCancelled(true);
+						event.blockList().remove(block);
 						semiBrokenBlocks.put(blockLocation, numberOfTimesBroken + 1);
 					} else {
 						semiBrokenBlocks.put(blockLocation, 0);
-						
 					}
 				} else {
 					semiBrokenBlocks.put(blockLocation, 1);
-					event.setCancelled(true);
+					event.blockList().remove(block);
 				}
 			}
 		}
