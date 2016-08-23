@@ -3,6 +3,7 @@ package blockEvents;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -39,7 +40,9 @@ public class StoneBrickHandler implements Listener {
 					} else {
 						semiBrokenBlocks.put(blockLocation, 0);
 					}
-				} else {
+				} else if(block.getType().equals(Material.BEACON)){
+					// TODO: Remove the core from the chunk data
+				}else{
 					semiBrokenBlocks.put(blockLocation, 1);
 					event.blockList().remove(block);
 				}

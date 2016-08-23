@@ -16,6 +16,8 @@ import main.Raidcraft;
 public class BlockPlaceHandler implements Listener{
 	ClaimCommand claimCore = new ClaimCommand();
 	Faction factionCore = new Faction();
+	TNTHandler tntHandler = new TNTHandler();
+	CoreHandler coreHandler = new CoreHandler();
 	
 	Raidcraft plugin;
 	
@@ -35,15 +37,23 @@ public class BlockPlaceHandler implements Listener{
 			player.sendMessage(plugin.pluginTitle + plugin.failColor + "You don't have permission to place a block here");
 			event.setCancelled(true);
 		}else{
-			if (event.getBlock().getType().equals(Material.TNT)) {
-				event.getBlock().setType(Material.AIR);
-				TNTPrimed tnt = (TNTPrimed) event.getPlayer().getWorld().spawn(event.getBlock().getLocation(), TNTPrimed.class);
+			Material blockType = event.getBlock().getType();
+			
+			switch (blockType){
+			case TNT:
+				tntHandler.createTNT(event);
+				break;
+			case BEACON:
+				coreHandler.addBeacon(plugin, event);
+				break;
+			default:
+				break;
 			} // End of if the block is TNT
 		}
 	}
 	
 	@EventHandler
-	public void playerBreakPlace(BlockBreakEvent event){
+	public void playerBreak(BlockBreakEvent event){
 		Player player = event.getPlayer();
 		
 		Chunk blockChunk = event.getBlock().getChunk();
@@ -53,6 +63,16 @@ public class BlockPlaceHandler implements Listener{
 		if(!faction.equalsIgnoreCase(factionCore.getPlayerFaction(player)) && !faction.equalsIgnoreCase("Wilderness")){
 			player.sendMessage(plugin.pluginTitle + plugin.failColor + "You don't have permission to break this block");
 			event.setCancelled(true);
+		}else{
+			Material blockType = event.getBlock().getType();
+			
+			switch (blockType){
+			case BEACON:
+				coreHandler.removeBeacon(event);
+				break;
+			default:
+				break;
+			} 
 		}
 	}
 }// End of class
