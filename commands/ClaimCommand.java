@@ -22,7 +22,7 @@ public class ClaimCommand {
 		Chunk chunk = player.getLocation().getChunk();
 		String chunkInfo = chunk.toString();
 		
-		if (!chunkList.contains(chunkInfo) && getOwnerFaction(plugin, player, chunk).equals("Wilderness")) {
+		if (!hasCore(chunk)) {
 			chunkList.add(chunkInfo);
 			Raidcraft.addItem(totalPath, chunkList);
 			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.sucessColor + " You claimed this chunk for your clan");
@@ -65,4 +65,11 @@ public class ClaimCommand {
 		}
 		return "Wilderness";
 	}
+	
+	public boolean hasCore(Chunk chunk){
+		
+		
+		
+		return false;
+	}// End of hasCore method
 }// End of class

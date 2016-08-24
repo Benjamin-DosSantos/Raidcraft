@@ -6,11 +6,13 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import commands.ClaimCommand;
+import faction.Faction;
 import main.Raidcraft;
 
 public class CoreHandler {
 
 	ClaimCommand claimHandler = new ClaimCommand();
+	Faction factionCore = new Faction();
 	
 	public void addBeacon(Raidcraft plugin, BlockPlaceEvent event) {
 		Chunk currentChunk = event.getPlayer().getLocation().getChunk();
@@ -19,17 +21,23 @@ public class CoreHandler {
 		
 		if(claimHandler.getOwnerFaction(plugin, player, currentChunk).equalsIgnoreCase("Wilderness")){
 			event.setCancelled(true);
-			player.sendMessage("No");
+			player.sendMessage(plugin.pluginTitle + plugin.failColor + "You can't place a core block in a chunk your faction dosen't control");
 		}else{
-			player.sendMessage("You placed a core at " + currentChunkAsString);
+			player.sendMessage(plugin.pluginTitle + plugin.sucessColor + "You sucessfuly placed a core block");
+			String coreLocation = factionCore.factionLocation + "." + factionCore.getPlayerFaction(player) + "." + factionCore.landLocation + "." + currentChunkAsString;
+			plugin.addItem(coreLocation, "Yes");
+			player.sendMessage("Yes");
 		}
 	}// End of addBeacon Method
 	
-	public void removeBeacon(BlockBreakEvent event) {
+	public void removeBeacon(Raidcraft plugin, BlockBreakEvent event) {
 		Chunk currentChunk = event.getPlayer().getLocation().getChunk();
 		String currentChunkAsString = currentChunk.toString();
 		Player player = event.getPlayer();
 		
-		player.sendMessage("You removed a core from " + currentChunkAsString);
+		player.sendMessage(plugin.pluginTitle + plugin.sucessColor + "You removed a core from this chunk");
+		String coreLocation = factionCore.factionLocation + "." + factionCore.getPlayerFaction(player) + "." + factionCore.landLocation + "." + currentChunkAsString;
+		plugin.addItem(coreLocation, "No");
+		player.sendMessage("No");
 	}// End of addBeacon Method
 }// End of class

@@ -68,7 +68,7 @@ public class BlockPlaceHandler implements Listener{
 			
 			switch (blockType){
 			case BEACON:
-				coreHandler.removeBeacon(event);
+				coreHandler.removeBeacon(plugin, event);
 				break;
 			default:
 				break;
