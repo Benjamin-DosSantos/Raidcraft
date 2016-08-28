@@ -63,7 +63,7 @@ public class Raidcraft extends JavaPlugin implements Listener {
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
-		String currentOwner = claims.getOwnerFaction(this, event.getPlayer(), event.getTo().getChunk());
+		String currentOwner = claims.getOwnerFaction(this, event.getTo().getChunk());
 		if (!event.getFrom().getChunk().equals(event.getTo().getChunk()) && !currentOwner.equalsIgnoreCase(previousOwner)) {
 			event.getPlayer().sendMessage(ChatColor.GOLD + "<" + ChatColor.GREEN + currentOwner + ChatColor.GOLD + ">");
 			previousOwner = currentOwner;

@@ -18,7 +18,8 @@ public class Faction {
 	public String landLocation = "Land";
 	public String homeLocation = "Home";
 	public String inviteLocation = "Invites";
-
+	public String beaconLocation = "Beacons";
+	
 	List<String> masterList = new ArrayList<String>();
 
 	public void createFaction(Player player, String factionName) {
@@ -36,9 +37,13 @@ public class Faction {
 	
 	public void disbandFaction(Player player) {
 		String playerFaction = getPlayerFaction(player);
-		String factionPath = factionLocation + "." + playerFaction;
-		String factionLeader = Raidcraft.config.getString(factionPath + leaderLocation); 
-		if (isInConfig(player, playerFaction) && factionLeader.equalsIgnoreCase(player.getUniqueId().toString())) {
+		String factionPath = factionLocation + "." + playerFaction + "." + leaderLocation;
+		String factionLeader = Raidcraft.config.getString(factionPath); 
+		String playerUUID = player.getUniqueId().toString();
+		List<String> factions = getAllFactions();
+		if (factions.contains(playerFaction) && factionLeader.equals(playerUUID)) {
+			factions.remove(playerFaction);
+			Raidcraft.addItem(factionLocation, factions);
 			player.sendMessage(Raidcraft.pluginTitle + Raidcraft.sucessColor + "Faction removed successfully!");
 		} else {
 			player.sendMessage(
@@ -67,10 +72,6 @@ public class Faction {
 	public int getNumberOfFactions(){
 		return getAllFactions().size();
 	}
-
-	public void removeFaction(Player player, String factionName) {
-
-	}// End of removeFaction method
 
 	public String getFactionLeader(String factionName) {
 		return Raidcraft.config.getString(factionLocation + "." + factionName + "." + leaderLocation);

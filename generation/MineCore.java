@@ -30,6 +30,7 @@ public class MineCore {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	private void corner(Raidcraft plugin, Player player, String mineName) {
 		String locationPath = mineLocation + "." + mineName;
 		
@@ -49,6 +50,7 @@ public class MineCore {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	private void newMine(Raidcraft plugin, Player player, String mineName) {
 		plugin.addItem(mineLocation + "." + mineName, " ");
 		player.sendMessage(plugin.pluginTitle + plugin.sucessColor + "Mine created sucessfuly");
@@ -68,6 +70,7 @@ public class MineCore {
 		return getAllMines(mineLocation).size();
 	}
 	
+	@SuppressWarnings("static-access")
 	public void listMines(Raidcraft plugin, Player player){
 		int numberOfMines = getNumberOfMines();
 		

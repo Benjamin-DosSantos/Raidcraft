@@ -31,7 +31,7 @@ public class BlockPlaceHandler implements Listener{
 		
 		Chunk blockChunk = event.getBlock().getChunk();
 		
-		String faction = claimCore.getOwnerFaction(plugin, player, blockChunk);
+		String faction = claimCore.getOwnerFaction(plugin, blockChunk);
 		
 		if(!faction.equalsIgnoreCase(factionCore.getPlayerFaction(player)) && !faction.equalsIgnoreCase("Wilderness") && !event.getBlock().equals(Material.TNT)){
 			player.sendMessage(plugin.pluginTitle + plugin.failColor + "You don't have permission to place a block here");
@@ -58,7 +58,7 @@ public class BlockPlaceHandler implements Listener{
 		
 		Chunk blockChunk = event.getBlock().getChunk();
 		
-		String faction = claimCore.getOwnerFaction(plugin, player, blockChunk);
+		String faction = claimCore.getOwnerFaction(plugin, blockChunk);
 		
 		if(!faction.equalsIgnoreCase(factionCore.getPlayerFaction(player)) && !faction.equalsIgnoreCase("Wilderness")){
 			player.sendMessage(plugin.pluginTitle + plugin.failColor + "You don't have permission to break this block");
