@@ -19,6 +19,8 @@ public class Faction {
 	public String homeLocation = "Home";
 	public String inviteLocation = "Invites";
 	public String beaconLocation = "Beacons";
+	public String allowedClaimsLocation = "TotalClaims";
+	public String currentClaimsLocation = "CurrentClaims";
 	
 	List<String> masterList = new ArrayList<String>();
 
@@ -29,6 +31,8 @@ public class Faction {
 			masterList.add(factionName);
 			Raidcraft.addItem(factionPath, masterList);
 			Raidcraft.addItem(factionPath + "." + leaderLocation, player.getUniqueId().toString());
+			Raidcraft.addItem(factionPath + "." + allowedClaimsLocation, 1);
+			Raidcraft.addItem(factionPath + "." + currentClaimsLocation, 0);
 		} else {
 			player.sendMessage(
 					Raidcraft.pluginTitle + Raidcraft.failColor + "The faction was not created, please try again.");
@@ -79,12 +83,14 @@ public class Faction {
 
 	public String getPlayerFaction(Player player) {
 		List<String> factionList = getAllFactions();
-		for (String faction : factionList) {
-			String factionPath = factionLocation + "." + faction;
-			if (player.getUniqueId().toString()
-					.equals(Raidcraft.config.getString(factionPath + "." + leaderLocation).toString())
-					|| getAllPlayersInFaction(faction).contains(player.getUniqueId().toString())) {
-				return faction;
+		if(player.isOnline()){
+			for (String faction : factionList) {
+				String factionPath = factionLocation + "." + faction;
+				if (player.getUniqueId().toString()
+						.equals(Raidcraft.config.getString(factionPath + "." + leaderLocation).toString())
+						|| getAllPlayersInFaction(faction).contains(player.getUniqueId().toString())) {
+					return faction;
+				}
 			}
 		}
 		return null;
@@ -122,6 +128,7 @@ public class Faction {
 		if (getPlayerFaction(player) == null) {
 			playerList.add(player.getUniqueId().toString());
 			Raidcraft.config.set(factionLocation + "." + factionName + "." + playerLocation, playerList);
+			addTotalClaims(factionName, 1);
 			player.sendMessage("You have been added to a clan");
 		} else {
 			player.sendMessage("You are already a part of a faction");
@@ -172,4 +179,31 @@ public class Faction {
 	public void removePlayerFromFaction(Player player, String factionName) {
 
 	}// End of removePlayerFromFaction
+	
+	public void addTotalClaims(String factionName, int numberToAdd){
+		int allowedClaims = Raidcraft.config.getInt(factionLocation + "." + factionName + "." + allowedClaimsLocation);
+		Raidcraft.config.set(factionLocation + "." + factionName + "." + allowedClaimsLocation, (allowedClaims += numberToAdd));
+	}
+	
+	public void removeTotalClaims(String factionName, int numberToRemove){
+		int allowedClaims = Raidcraft.config.getInt(factionLocation + "." + factionName + "." + allowedClaimsLocation);
+		Raidcraft.config.set(factionLocation + "." + factionName + "." + allowedClaimsLocation, (allowedClaims -= numberToRemove));
+	}
+	
+	public void addCurrentClaims(String factionName, int numberToAdd){
+		int currentClaims = Raidcraft.config.getInt(factionLocation + "." + factionName + "." + currentClaimsLocation);
+		Raidcraft.config.set(factionLocation + "." + factionName + "." + currentClaimsLocation, (currentClaims += numberToAdd));
+	}
+	
+	public void removeCurrentClaims(String factionName, int numberToRemove){
+		int currentClaims = Raidcraft.config.getInt(factionLocation + "." + factionName + "." + currentClaimsLocation);
+		Raidcraft.config.set(factionLocation + "." + factionName + "." + currentClaimsLocation, (currentClaims -= numberToRemove));
+	}
+	
+	public boolean hasEnoughChunks(String factionName){
+		int currentChunks = Raidcraft.config.getInt(factionLocation + "." + factionName + "." + currentClaimsLocation);
+		int maxChunks = Raidcraft.config.getInt(factionLocation + "." + factionName + "." + allowedClaimsLocation); 
+		
+		return (currentChunks < maxChunks);
+	}
 }// End of class
