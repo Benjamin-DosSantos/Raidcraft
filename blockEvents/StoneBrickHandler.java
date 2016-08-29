@@ -46,6 +46,8 @@ public class StoneBrickHandler implements Listener {
 					semiBrokenBlocks.put(blockLocation, 1);
 					event.blockList().remove(block);
 				}
+			}else{
+				event.blockList().remove(block);
 			}
 		}
 	}

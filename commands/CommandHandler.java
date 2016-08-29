@@ -30,7 +30,7 @@ public class CommandHandler {
 			factionCore.listClans(plugin, player);
 			break;
 		case "unclaim":
-			claimCore.removeLandFromFaction(plugin, player, commandArgs[1]);
+			claimCore.removeLandFromFaction(plugin, player, commandArgs);
 			break;
 		case "invite":
 			factionCore.invitePlayerToFaction(player, Bukkit.getPlayer(commandArgs[1]));

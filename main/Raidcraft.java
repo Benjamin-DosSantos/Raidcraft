@@ -16,6 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import blockEvents.BlockPlaceHandler;
 import blockEvents.StoneBrickHandler;
+import classes.ClassHandler;
 import commands.ClaimCommand;
 import commands.CommandHandler;
 import faction.Faction;
@@ -33,6 +34,7 @@ public class Raidcraft extends JavaPlugin implements Listener {
 	MineCore mineCore = new MineCore();
 	ClaimCommand claims = new ClaimCommand();
 	Faction factionCore = new Faction();
+	ClassHandler classHandler = new ClassHandler();
 	
 	public String previousOwner = "";
 	
@@ -45,6 +47,9 @@ public class Raidcraft extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new BlockPlaceHandler(this), this);
 		getServer().getPluginManager().registerEvents(new StoneBrickHandler(this), this);
 		
+		addItem("Class 1", "");
+		addItem("Class 2", "");
+		
 		saveConfig();
 	}// End of onEnable Method
 
@@ -55,7 +60,7 @@ public class Raidcraft extends JavaPlugin implements Listener {
 			saveConfig();
 			return true;
 		case "mine":
-			mineCore.routeMine(this, (Player) sender, args);
+			mineCore.routeMine(this, (Player) sender);
 			break;
 		}// End of command finder
 		return false;
@@ -75,6 +80,9 @@ public class Raidcraft extends JavaPlugin implements Listener {
 		if(!factionCore.playerHasInvite(this, event.getPlayer()).equals("")){
 			event.getPlayer().sendMessage(pluginTitle + "You have an invite to join the clan " + factionCore.playerHasInvite(this, event.getPlayer()));
 		}
+		
+		classHandler.classifyPlayer(this, event.getPlayer());
+		
 	}
 	
 	public static void addItem(String path, String string) {

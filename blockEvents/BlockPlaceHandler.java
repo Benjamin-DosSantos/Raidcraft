@@ -33,7 +33,7 @@ public class BlockPlaceHandler implements Listener{
 		
 		String faction = claimCore.getOwnerFaction(plugin, blockChunk);
 		
-		if(!faction.equalsIgnoreCase(factionCore.getPlayerFaction(player)) && !faction.equalsIgnoreCase("Wilderness") && !event.getBlock().equals(Material.TNT)){
+		if(!faction.equalsIgnoreCase(factionCore.getPlayerFaction(player)) && !faction.equalsIgnoreCase("Wilderness") && !event.getBlock().getType().equals(Material.TNT)){
 			player.sendMessage(plugin.pluginTitle + plugin.failColor + "You don't have permission to place a block here");
 			event.setCancelled(true);
 		}else{

@@ -2,8 +2,11 @@ package generation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -17,17 +20,8 @@ public class MineCore {
 	
 	boolean cornerCalledBefore = false;
 	
-	public void routeMine(Raidcraft plugin, Player player, String[] commandArgs) {
-		switch (commandArgs[0].toLowerCase()) {
-		case "newMine":
-			newMine(plugin, player, commandArgs[1]);
-			break;
-		case "list":
-			listMines(plugin, player);
-			break;
-		case "corner":
-			corner(plugin, player, commandArgs[1]);
-		}
+	public void routeMine(Raidcraft plugin, Player player) {
+		newMine(plugin, player);
 	}
 
 	@SuppressWarnings("static-access")
@@ -50,10 +44,43 @@ public class MineCore {
 		}
 	}
 
-	@SuppressWarnings("static-access")
-	private void newMine(Raidcraft plugin, Player player, String mineName) {
-		plugin.addItem(mineLocation + "." + mineName, " ");
-		player.sendMessage(plugin.pluginTitle + plugin.sucessColor + "Mine created sucessfuly");
+	private void newMine(Raidcraft plugin, Player player) {
+		int xSize = (4 * 13);
+		int ySize = 4;
+		int zSize = (4 * 13);
+		
+		Material[] materials = new Material[4];
+		
+		materials[0] = Material.DIAMOND_ORE;
+		materials[1] = Material.GOLD_ORE;
+		materials[2] = Material.IRON_ORE;
+		materials[3] = Material.STONE;
+		
+		player.sendMessage("Command");
+		
+		Location playerLoc = player.getLocation();
+		
+		Random ran = new Random();
+		
+		for(int x = 0; x < xSize; x++){
+			for(int y = 0; y < ySize; y++){
+				for(int z = 0; z < zSize; z++){
+					int diamondRoll = ran.nextInt(50);
+					int goldRoll = ran.nextInt(100);
+					int ironRoll = ran.nextInt(200);
+					int stoneRoll = ran.nextInt(400);
+					
+					int winner = diamondRoll;
+					int number = 0;
+					
+					if (goldRoll  > winner) { winner = goldRoll ; number = 1; }
+					if (ironRoll  > winner) { winner = ironRoll ; number = 2; }
+					if (stoneRoll > winner) { winner = stoneRoll; number = 3; }
+					
+					player.getWorld().getBlockAt(new Location(player.getWorld(), playerLoc.getX() + x, playerLoc.getY() + y, playerLoc.getZ() + z)).setType(materials[number]);
+				}
+			}
+		}
 	}
 	
 	public List<String> getAllMines(String mineLocation){

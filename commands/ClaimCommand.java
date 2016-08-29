@@ -42,12 +42,12 @@ public class ClaimCommand {
 		}
 	}
 
-	public void removeLandFromFaction(Raidcraft plugin, Player player, String all){
+	public void removeLandFromFaction(Raidcraft plugin, Player player, String[] args){
 		String faction = factionCore.getPlayerFaction(player);
 		String totalPath = factionCore.factionLocation + "." + faction + "." + factionCore.landLocation;
 		
 		List<String> chunkList = getFactionClaims(plugin, totalPath); 
-		if(all == null){
+		if(!(args.length > 0)){
 			String chunkInfo = player.getLocation().getChunk().toString();
 			
 			if (chunkList.contains(chunkInfo)) {
