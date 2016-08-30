@@ -2,6 +2,7 @@ package main;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -12,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import blockEvents.BlockPlaceHandler;
@@ -43,12 +45,10 @@ public class Raidcraft extends JavaPlugin implements Listener {
 	public void onEnable() {
 		config = this.getConfig();
 		
-		getServer().getPluginManager().registerEvents(this, this);
-		getServer().getPluginManager().registerEvents(new BlockPlaceHandler(this), this);
-		getServer().getPluginManager().registerEvents(new StoneBrickHandler(this), this);
-		
-		addItem("Class 1", "");
-		addItem("Class 2", "");
+		PluginManager pm = Bukkit.getServer().getPluginManager();
+        pm.registerEvents(this, this);
+        pm.registerEvents(new BlockPlaceHandler(this), this);
+        pm.registerEvents(new StoneBrickHandler(this), this);
 		
 		saveConfig();
 	}// End of onEnable Method
@@ -62,6 +62,8 @@ public class Raidcraft extends JavaPlugin implements Listener {
 		case "mine":
 			mineCore.routeMine(this, (Player) sender);
 			break;
+		case "class":
+			classHandler.commandHandler(this, (Player) sender, args);
 		}// End of command finder
 		return false;
 	}// End of onCommand Method
@@ -77,11 +79,12 @@ public class Raidcraft extends JavaPlugin implements Listener {
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event){
-		if(!factionCore.playerHasInvite(this, event.getPlayer()).equals("")){
+
+		classHandler.classifyPlayer(this, event.getPlayer());
+		
+		if(!factionCore.playerHasInvite(this, event.getPlayer()).equals(null)){
 			event.getPlayer().sendMessage(pluginTitle + "You have an invite to join the clan " + factionCore.playerHasInvite(this, event.getPlayer()));
 		}
-		
-		classHandler.classifyPlayer(this, event.getPlayer());
 		
 	}
 	
