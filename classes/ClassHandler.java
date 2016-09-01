@@ -70,6 +70,8 @@ public class ClassHandler {
 			raidcraft.addItem("Class 1", classMembers);
 			raidcraft.saveConfig();
 			sender.sendMessage(raidcraft.pluginTitle + raidcraft.sucessColor + "You have been added to class 1");
+		}else if(args.length == 1){
+			sender.sendMessage("This is a help message");
 		}else{
 			sender.sendMessage(raidcraft.pluginTitle + raidcraft.failColor + "This is not a class command, try" + ChatColor.BOLD + "/class 1, 2, or 3" + ChatColor.RESET + raidcraft.failColor + "to learn more about each class");
 		}
@@ -82,6 +84,8 @@ public class ClassHandler {
 			raidcraft.addItem("Class 2", classMembers);
 			raidcraft.saveConfig();
 			sender.sendMessage(raidcraft.pluginTitle + raidcraft.sucessColor + "You have been added to class 2");
+		}else if(args.length == 1){
+			sender.sendMessage("This is a help message");
 		}else{
 			sender.sendMessage(raidcraft.pluginTitle + raidcraft.failColor + "This is not a class command, try" + ChatColor.BOLD + "/class 1, 2, or 3" + ChatColor.RESET + raidcraft.failColor + "to learn more about each class");
 		}
@@ -94,6 +98,8 @@ public class ClassHandler {
 			raidcraft.addItem("Class 3", classMembers);
 			raidcraft.saveConfig();
 			sender.sendMessage(raidcraft.pluginTitle + raidcraft.sucessColor + "You have been added to class 3");
+		}else if(args.length == 1){
+			sender.sendMessage("This is a help message");
 		}else{
 			sender.sendMessage(raidcraft.pluginTitle + raidcraft.failColor + "This is not a class command, try" + ChatColor.BOLD + "/class 1, 2, or 3" + ChatColor.RESET + raidcraft.failColor + "to learn more about each class");
 		}

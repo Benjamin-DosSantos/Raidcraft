@@ -79,7 +79,7 @@ public class Raidcraft extends JavaPlugin implements Listener {
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event){
-
+		
 		classHandler.classifyPlayer(this, event.getPlayer());
 		
 		if(!factionCore.playerHasInvite(this, event.getPlayer()).equals(null)){
